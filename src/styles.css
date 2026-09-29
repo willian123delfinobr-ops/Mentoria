@@ -43,10 +43,11 @@ button { cursor: pointer; }
   padding: 13px 18px; border-radius: 11px; font-weight: 700;
 }
 .login-card .primary { width: 100%; margin-top: 25px; }
+.login-card .primary:disabled, .link-button:disabled { opacity: .65; cursor: wait; }
 .link-button {
   border: 0; background: transparent; color: #5d5cdd; width: 100%; margin-top: 14px;
 }
-.demo-note { font-size: 12px; color: #9aa1af; text-align: center; margin: 22px 0 0; }
+.auth-message { margin: 16px 0 -10px; padding: 11px 12px; border-radius: 9px; background: #f1f1ff; color: #4e4eb5; font-size: 13px; }
 
 .app { min-height: 100vh; display: flex; }
 .sidebar {
