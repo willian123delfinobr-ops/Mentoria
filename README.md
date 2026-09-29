@@ -17,24 +17,9 @@ Projeto inicial para uma plataforma de estudos com:
 npm install
 ```
 
-## 2. Configurar Supabase
+## 2. Serviços da plataforma
 
-Crie um projeto no Supabase e abra:
-
-**SQL Editor → New query**
-
-Cole e execute:
-
-```text
-supabase/schema.sql
-```
-
-Depois copie `.env.example` para `.env` e preencha:
-
-```env
-VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
-VITE_SUPABASE_ANON_KEY=SUA_CHAVE_ANON_PUBLICA
-```
+O projeto usa Netlify Identity para as contas dos membros e Netlify Database para aulas, mentorias e notificações. O banco e suas migrações são provisionados automaticamente no deploy.
 
 ## 3. Rodar
 
@@ -58,36 +43,10 @@ No Netlify:
 - Build command: `npm run build`
 - Publish directory: `dist`
 
-Em Environment Variables, adicione:
-
-```text
-VITE_SUPABASE_URL
-VITE_SUPABASE_ANON_KEY
-```
-
 ## 6. Criar o administrador
 
-O SQL cria automaticamente um perfil quando alguém se cadastra.
+Depois de criar sua conta, atribua a função `admin` ao usuário proprietário em **Netlify → Identity → Users**. Contas administrativas recebem os controles para publicar aulas, agendar mentorias e iniciar transmissões.
 
-Depois que o usuário administrador se cadastrar, no Supabase SQL Editor execute:
+## Transmissões
 
-```sql
-update public.profiles
-set role = 'admin'
-where id = (
-  select id from auth.users
-  where email = 'SEU_EMAIL_AQUI'
-);
-```
-
-Substitua `SEU_EMAIL_AQUI` pelo e-mail do dono.
-
-## Importante
-
-A `anon key` do Supabase pode aparecer no frontend. A proteção real deve ser feita pelas políticas RLS.
-
-**Nunca coloque a `service_role` key no frontend, no `.env` público ou no GitHub.**
-
-## Próxima etapa
-
-A tela atual é a base visual. O próximo passo é trocar o login de demonstração pelo `supabase.auth`, criar cadastro/recuperação de senha e ligar cada tela às tabelas do banco.
+Ao publicar uma mentoria, informe um link incorporável do YouTube ou Vimeo. Os membros assistem sem sair da plataforma e recebem notificações internas; também podem ativar os avisos do navegador.
